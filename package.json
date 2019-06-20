@@ -1,0 +1,23 @@
+{
+  "name": "custom-idp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
+    "serve": "tsc && node ./build/app.js"
+  },
+  "author": "Parin Chiamananthapong",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.4.4"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
