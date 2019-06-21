@@ -1,12 +1,12 @@
 import express = require("express");
+import 'dotenv/config';
 import { RSA_PKCS1_OAEP_PADDING } from "constants";
 import * as rp from 'request-promise-native';
 const fs = require('fs');
 const cors = require('cors');
 const uuidv4 = require('uuid/v4');
 
-let raw = fs.readFileSync('.secret');
-let config = JSON.parse(raw);
+const port = process.env.PORT || 8080;
 const app: express.Application = express();
 
 app.use(express.urlencoded());
@@ -29,9 +29,10 @@ async function AuthenV1():Promise<any>  {
         resourceOwnerId: 'XXX'
     }
     let body:any = {
-        applicationKey: config.appKey,
-        applicationSecret: config.appSecret
+        applicationKey: process.env.appKey,
+        applicationSecret: process.env.appSecret
     }
+    console.log(body)
     let options = {
         headers: header,
         body: body,
@@ -48,6 +49,7 @@ app.get("/pay/:amount", async (req, res) => {
     if(authResponse.status.code == 1000) {
         token = authResponse.data.accessToken;
     }
+    console.log(token);
     // generate deeplink
     let requestId = uuidv4();
     let header: authenHeader = {
@@ -63,7 +65,7 @@ app.get("/pay/:amount", async (req, res) => {
         transactionType: 'PAYMENT',
         transactionSubType: 'BPA',
         ref1: 'helloworld',
-        accountTo: config.billerId,
+        accountTo: process.env.billerId,
         merchantMetaData: {
             paymentInfo: [
                 {
@@ -82,6 +84,11 @@ app.get("/pay/:amount", async (req, res) => {
     return res.send(response.data.deeplinkUrl);
 });
 
-app.listen(9000, () => {
+app.get('/callback' , (req,res) => {
+    console.log(req.body);
+    return res.send('hello');
+});
+
+app.listen(port, () => {
     
 });

@@ -6,7 +6,8 @@
   "scripts": {
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
-    "serve": "tsc && node ./build/app.js"
+    "serve": "tsc && node ./build/app.js",
+    "start": "node build/app.js"
   },
   "author": "Parin Chiamananthapong",
   "license": "ISC",
@@ -18,6 +19,7 @@
   "dependencies": {
     "@types/request-promise-native": "^1.0.16",
     "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
