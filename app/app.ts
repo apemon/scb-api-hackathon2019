@@ -2,6 +2,7 @@ import express = require("express");
 import { RSA_PKCS1_OAEP_PADDING } from "constants";
 import * as rp from 'request-promise-native';
 const fs = require('fs');
+const cors = require('cors');
 const uuidv4 = require('uuid/v4');
 
 let raw = fs.readFileSync('.secret');
@@ -9,6 +10,7 @@ let config = JSON.parse(raw);
 const app: express.Application = express();
 
 app.use(express.urlencoded());
+app.use(cors());
 
 interface authenHeader {
     contentType: string,
@@ -78,10 +80,8 @@ app.get("/pay/:amount", async (req, res) => {
     }
     let response:any = await rp.post('https://api.partners.scb/partners/sandbox/v2/deeplink/transactions', options);
     return res.send(response.data.deeplinkUrl);
-    // return deeplink
-    // return res.send(token);
 });
 
 app.listen(9000, () => {
-
+    
 });
