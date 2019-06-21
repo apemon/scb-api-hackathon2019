@@ -85,6 +85,7 @@ app.get("/pay/:amount", async (req, res) => {
 });
 
 app.get('/callback' , (req,res) => {
+    console.log('hello');
     console.log(req.body);
     return res.send('hello');
 });
