@@ -90,6 +90,12 @@ app.get("/pay/:amount", async (req, res) => {
     return res.send(response.data.deeplinkUrl);
 });
 
+app.get('/callback/:tx' , (req,res) => {
+    console.log('hello');
+    console.log(req.params.tx);
+    return res.send('hello');
+});
+
 app.post('/callback/:tx' , (req,res) => {
     console.log('hello');
     console.log(req.body);
