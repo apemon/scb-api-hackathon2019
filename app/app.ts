@@ -86,13 +86,12 @@ app.get("/pay/:amount", async (req, res) => {
         json: true
     }
     let response:any = await rp.post('https://api.partners.scb/partners/sandbox/v2/deeplink/transactions', options);
-    let deeplink:string = response.data.deeplinkUrl + '?callback_url=' + process.env.callback + '/' + response.data.transactionId;
-    return res.send(deeplink);
+    //let deeplink:string = response.data.deeplinkUrl + '?callback_url=' + process.env.callback + '/' + response.data.transactionId;
+    return res.send(response.data.deeplinkUrl);
 });
 
-app.post('/callback/:tx' , (req,res) => {
+app.all('/callback' , (req,res) => {
     console.log('hello');
-    console.log(req.params.tx);
     console.log(req.body);
     return res.send('hello');
 });
