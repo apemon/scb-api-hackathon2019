@@ -93,6 +93,7 @@ app.get("/pay/:amount", async (req, res) => {
 app.post('/callback/:tx' , (req,res) => {
     console.log('hello');
     console.log(req.params.tx);
+    console.log(req.body);
     return res.send('hello');
 });
 
