@@ -56,7 +56,7 @@ app.get("/pay/:amount", async (req, res) => {
         requestUId: requestId,
         authorization: 'Bearer ' + token,
         acceptLanguage: 'EN',
-        resourceOwnerId: 'XXX',
+        resourceOwnerId: process.env.appKey,
         contentType: 'application/json',
         channel: 'scbeasy'
     };
@@ -64,12 +64,17 @@ app.get("/pay/:amount", async (req, res) => {
         paymentAmount: req.params.amount,
         transactionType: 'PAYMENT',
         transactionSubType: 'BPA',
-        ref1: 'helloworld',
+        ref1: '1101213202',
+        ref2: '21211212',
         accountTo: process.env.billerId,
         merchantMetaData: {
             paymentInfo: [
                 {
-
+                    type: "TEXT_WITH_IMAGE",
+                    title: "salted egg",
+                    header: "Hello world",
+                    description: "just a salted egg",
+                    imageUrl: "https://www.rotinrice.com/wp-content/uploads/2012/04/SaltedEggs-1.jpg"
                 }
             ],
             analytics: {}
@@ -84,9 +89,9 @@ app.get("/pay/:amount", async (req, res) => {
     return res.send(response.data.deeplinkUrl);
 });
 
-app.get('/callback' , (req,res) => {
+app.get('/callback/:tx' , (req,res) => {
     console.log('hello');
-    console.log(req.body);
+    console.log(req.params.tx);
     return res.send('hello');
 });
 
